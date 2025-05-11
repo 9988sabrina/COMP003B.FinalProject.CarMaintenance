@@ -1,0 +1,48 @@
+﻿@model IEnumerable<COMP003B.FinalProject.CarMaintenance.Models.CarMaintenanceEntry>
+
+@{
+    ViewData["Title"] = "Maintenance Entries";
+}
+
+<h1>Maintenance Entries</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Customer</th>
+            <th>Mechanic</th>
+            <th>Service Type</th>
+            <th>Service Date</th>
+            <th>Cost</th>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Car?.Make @item.Car?.Model (@item.Car?.Year)</td>
+                <td>@item.Customer?.FullName</td>
+                <td>@item.Mechanic?.Name</td>
+                <td>@item.ServiceType?.Name</td>
+                <td>@item.ServiceDate.ToShortDateString()</td>
+                <td>@item.Cost.ToString("C")</td>
+                <td>@item.Notes</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
